@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\download.gif" />
+    <None Remove="img\github.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CandidateManagement_Service\CandidateManagement_Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\download.gif" />
+    <Resource Include="img\github.png" />
+  </ItemGroup>
+
+</Project>
