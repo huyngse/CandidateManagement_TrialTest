@@ -1,11 +1,11 @@
-﻿<Window x:Class="CandidateManagement_WPF.JobPostingWindow"
+﻿<Window x:Name="jobPostingWindow" x:Class="CandidateManagement_WPF.JobPostingWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CandidateManagement_WPF"
         mc:Ignorable="d"
-        Title="JobPostingWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="JobPostingWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="jobPostingWindow_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="59*"/>
@@ -32,10 +32,10 @@
                     <StackPanel >
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Description" Width="100"/>
-                            <RichTextBox Height="100" Width="406">
+                            <RichTextBox x:Name="rtbDescription" Height="100" Width="406">
                                 <FlowDocument>
                                     <Paragraph>
-                                        <Run Text="RichTextBox"/>
+                                        <Run Text=""/>
                                     </Paragraph>
                                 </FlowDocument>
                             </RichTextBox>
@@ -44,7 +44,7 @@
                 </StackPanel>
                 <DataGrid x:Name="dtgJobPosting" Height="160" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0"/>
                 <StackPanel Height="auto" Orientation="Horizontal"  Margin="0,10,0,0" HorizontalAlignment="Right" >
-                    <Button x:Name="btnAdd" Content="Add"  Padding="20, 5" Background="Aqua"/>
+                    <Button x:Name="btnAdd" Content="Add"  Padding="20, 5" Background="Aqua" Click="btnAdd_Click"/>
                     <Button x:Name="btnUpdate" Content="Update" Margin="10,0,0,0" Padding="20, 5" Background="GreenYellow"/>
                     <Button x:Name="btnDelete" Content="Delete" Margin="10,0,0,0"   Padding="20, 5" Background="IndianRed"/>
                     <Button x:Name="btnClose" Content="close" Margin="10,0,0,0"   Padding="20, 5" Click="btnClose_Click" Background="LightGray"/>
