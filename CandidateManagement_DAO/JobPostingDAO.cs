@@ -8,5 +8,6 @@ namespace CandidateManagement_DAO
 {
     public class JobPostingDAO
     {
+        public JobPostingDAO() { }
     }
 }
