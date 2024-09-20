@@ -10,7 +10,7 @@ namespace CandidateManagement_DAO
     public class JobPostingDAO
     {
         private CandidateManagementContext _context;
-        private static JobPostingDAO instance = new();
+        private static JobPostingDAO? instance;
 
         public static JobPostingDAO Instance
         {

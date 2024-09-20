@@ -35,8 +35,11 @@ namespace CandidateManagement_WPF
                 {
                     if (account.MemberRole == 1)
                     {
-                        JobPostingWindow jobPostingWindow = new JobPostingWindow();
-                        jobPostingWindow.Show();
+                        //JobPostingWindow jobPostingWindow = new JobPostingWindow();
+                        //jobPostingWindow.Show();
+
+                        CandidateProfileWindow candidateProfileWindow = new CandidateProfileWindow();
+                        candidateProfileWindow.Show();
                     } else
                     {
                         MessageBox.Show("Account doesn't have permission", "Alert Title", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -2,6 +2,7 @@
 using CandidateManagement_Service;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,12 +48,36 @@ namespace CandidateManagement_WPF
                 Description = new TextRange(rtbDescription.Document.ContentStart, rtbDescription.Document.ContentEnd).Text,
                 PostedDate = DateTime.Parse(dpkPostDate.Text)
             };
-            if (jobPostingService.AddJobPosting(job)) {
+            if (jobPostingService.AddJobPosting(job))
+            {
                 MessageBox.Show("Add successful!");
             } else
             {
                 MessageBox.Show("Something went wrong!");
 
+            }
+        }
+
+        private void dtgJobPosting_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid? dataGrid = sender as DataGrid;
+            if (dataGrid != null)
+            {
+                DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
+                DataGridCell? rowColumn = dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
+                if (rowColumn != null)
+                {
+                    string postingId = ((TextBlock)rowColumn.Content).Text;
+                    JobPosting? jobPosting = jobPostingService.GetJobPosting(postingId);
+                    if (jobPosting != null)
+                    {
+                        txtPostId.Text = jobPosting.PostingId;
+                        txtTitle.Text = jobPosting.JobPostingTitle;
+                        rtbDescription.Document.Blocks.Clear();
+                        rtbDescription.Document.Blocks.Add(new Paragraph(new Run(jobPosting.Description)));
+                        dpkPostDate.SelectedDate = jobPosting.PostedDate;
+                    }
+                }
             }
         }
     }

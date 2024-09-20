@@ -10,7 +10,7 @@ namespace CandidateManagement_DAO
     public class HRAccountDAO
     {
         private CandidateManagementContext context;
-        private static HRAccountDAO instance = new();
+        private static HRAccountDAO? instance;
         public HRAccountDAO()
         {
             context = new();

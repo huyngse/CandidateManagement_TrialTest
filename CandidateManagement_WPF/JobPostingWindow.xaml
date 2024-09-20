@@ -42,7 +42,7 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <DataGrid x:Name="dtgJobPosting" Height="160" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0"/>
+                <DataGrid x:Name="dtgJobPosting" Height="160" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0" SelectionChanged="dtgJobPosting_SelectionChanged"/>
                 <StackPanel Height="auto" Orientation="Horizontal"  Margin="0,10,0,0" HorizontalAlignment="Right" >
                     <Button x:Name="btnAdd" Content="Add"  Padding="20, 5" Background="Aqua" Click="btnAdd_Click"/>
                     <Button x:Name="btnUpdate" Content="Update" Margin="10,0,0,0" Padding="20, 5" Background="GreenYellow"/>
