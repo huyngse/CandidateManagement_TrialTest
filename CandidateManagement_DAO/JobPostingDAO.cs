@@ -62,7 +62,7 @@ namespace CandidateManagement_DAO
             {
                 if (existingJobPosting != null)
                 {
-                    _context.JobPostings.Remove(jobPosting);
+                    _context.JobPostings.Remove(existingJobPosting);
                     _context.SaveChanges();
                     isSuccess = true;
                 }
@@ -80,7 +80,11 @@ namespace CandidateManagement_DAO
             {
                 if (existingJobPosting != null)
                 {
-                    _context.Entry(jobPosting).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    //_context.Entry(existingJobPosting).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    existingJobPosting.JobPostingTitle = jobPosting.JobPostingTitle;
+                    existingJobPosting.PostingId = jobPosting.PostingId;
+                    existingJobPosting.PostedDate = jobPosting.PostedDate;
+                    existingJobPosting.Description = jobPosting.Description;
                     _context.SaveChanges();
                     isSuccess = true;
                 }

@@ -11,5 +11,8 @@ namespace CandidateManagement_Service
     {
         public List<CandidateProfile> GetCandidateProfiles();
         public CandidateProfile? GetCandidateProfile(string id);
+        public bool AddCandidateProfile(CandidateProfile candidateProfile);
+        public bool DeleteCandidateProfile(CandidateProfile candidateProfile);
+        public bool UpdateCandidateProfile(CandidateProfile candidateProfile);
     }
 }

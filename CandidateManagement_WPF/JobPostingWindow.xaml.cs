@@ -36,7 +36,7 @@ namespace CandidateManagement_WPF
 
         private void jobPostingWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            dtgJobPosting.ItemsSource = jobPostingService.GetJobPostings();
+            LoadData();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -51,10 +51,10 @@ namespace CandidateManagement_WPF
             if (jobPostingService.AddJobPosting(job))
             {
                 MessageBox.Show("Add successful!");
+                LoadData();
             } else
             {
                 MessageBox.Show("Something went wrong!");
-
             }
         }
 
@@ -64,20 +64,67 @@ namespace CandidateManagement_WPF
             if (dataGrid != null)
             {
                 DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
-                DataGridCell? rowColumn = dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
-                if (rowColumn != null)
+                if (row != null)
                 {
-                    string postingId = ((TextBlock)rowColumn.Content).Text;
-                    JobPosting? jobPosting = jobPostingService.GetJobPosting(postingId);
-                    if (jobPosting != null)
+                    DataGridCell? rowColumn = dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
+                    if (rowColumn != null)
                     {
-                        txtPostId.Text = jobPosting.PostingId;
-                        txtTitle.Text = jobPosting.JobPostingTitle;
-                        rtbDescription.Document.Blocks.Clear();
-                        rtbDescription.Document.Blocks.Add(new Paragraph(new Run(jobPosting.Description)));
-                        dpkPostDate.SelectedDate = jobPosting.PostedDate;
+                        string postingId = ((TextBlock)rowColumn.Content).Text;
+                        JobPosting? jobPosting = jobPostingService.GetJobPosting(postingId);
+                        if (jobPosting != null)
+                        {
+                            txtPostId.Text = jobPosting.PostingId;
+                            txtTitle.Text = jobPosting.JobPostingTitle;
+                            rtbDescription.Document.Blocks.Clear();
+                            rtbDescription.Document.Blocks.Add(new Paragraph(new Run(jobPosting.Description)));
+                            dpkPostDate.SelectedDate = jobPosting.PostedDate;
+                        }
                     }
                 }
+            }
+        }
+
+        private void LoadData()
+        {
+            dtgJobPosting.ItemsSource = jobPostingService.GetJobPostings();
+            txtPostId.Text = String.Empty;
+            txtTitle.Text = String.Empty;
+            rtbDescription.Document.Blocks.Clear();
+            dpkPostDate.SelectedDate = DateTime.Now;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            JobPosting job = new()
+            {
+                PostingId = txtPostId.Text,
+            };
+            if (jobPostingService.DeleteJobPosting(job))
+            {
+                MessageBox.Show("Delete successful!");
+                LoadData();
+            } else
+            {
+                MessageBox.Show("Something went wrong!");
+            }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            JobPosting job = new()
+            {
+                PostingId = txtPostId.Text,
+                JobPostingTitle = txtTitle.Text,
+                Description = new TextRange(rtbDescription.Document.ContentStart, rtbDescription.Document.ContentEnd).Text,
+                PostedDate = DateTime.Parse(dpkPostDate.Text)
+            };
+            if (jobPostingService.UpdateJobPosting(job))
+            {
+                MessageBox.Show("Update successful!");
+                LoadData();
+            } else
+            {
+                MessageBox.Show("Something went wrong!");
             }
         }
     }

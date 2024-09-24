@@ -95,9 +95,9 @@
             </Grid>
         </GroupBox>
         <StackPanel Height="auto" Orientation="Horizontal"  Margin="0,10,0,0" HorizontalAlignment="Right" Grid.Row="2">
-            <Button x:Name="btnAdd" Content="Add"  Padding="20, 5" Background="Aqua" />
-            <Button x:Name="btnUpdate" Content="Update" Margin="10,0,0,0" Padding="20, 5" Background="GreenYellow"/>
-            <Button x:Name="btnDelete" Content="Delete" Margin="10,0,0,0"   Padding="20, 5" Background="IndianRed"/>
+            <Button x:Name="btnAdd" Content="Add"  Padding="20, 5" Background="Aqua" Click="btnAdd_Click" />
+            <Button x:Name="btnUpdate" Content="Update" Margin="10,0,0,0" Padding="20, 5" Background="GreenYellow" Click="btnUpdate_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Margin="10,0,0,0"   Padding="20, 5" Background="IndianRed" Click="btnDelete_Click"/>
             <Button x:Name="btnClose" Content="close" Margin="10,0,0,0"   Padding="20, 5"  Background="LightGray" Click="btnClose_Click"/>
         </StackPanel>
     </Grid>

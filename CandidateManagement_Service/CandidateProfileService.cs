@@ -15,6 +15,17 @@ namespace CandidateManagement_Service
         {
             candidateProfileRepo = new CandidateProfileRepo();
         }
+
+        public bool AddCandidateProfile(CandidateProfile candidateProfile)
+        {
+            return candidateProfileRepo.AddCandidateProfile(candidateProfile);
+        }
+
+        public bool DeleteCandidateProfile(CandidateProfile candidateProfile)
+        {
+            return candidateProfileRepo.DeleteCandidateProfile(candidateProfile);
+        }
+
         public CandidateProfile? GetCandidateProfile(string id)
         {
             return candidateProfileRepo.GetCandidateProfile(id);
@@ -23,6 +34,11 @@ namespace CandidateManagement_Service
         public List<CandidateProfile> GetCandidateProfiles()
         {
             return candidateProfileRepo.GetCandidateProfiles();
+        }
+
+        public bool UpdateCandidateProfile(CandidateProfile candidateProfile)
+        {
+            return candidateProfileRepo.UpdateCandidateProfile(candidateProfile);
         }
     }
 }
