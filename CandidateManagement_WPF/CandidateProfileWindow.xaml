@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CandidateManagement_WPF"
         mc:Ignorable="d"
-        Title="CandidateProfileWindow" Height="615" Width="914" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="CandidateProfileWindow" Height="600" Width="900" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
