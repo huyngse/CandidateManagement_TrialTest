@@ -50,24 +50,22 @@ namespace CandidateManagement_WPF
             };
             if (jobPostingService.AddJobPosting(job))
             {
-                MessageBox.Show("Add successful!");
+                MessageBox.Show("Jost Posting is added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadData();
             } else
             {
-                MessageBox.Show("Something went wrong!");
+                MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void dtgJobPosting_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataGrid? dataGrid = sender as DataGrid;
-            if (dataGrid != null)
+            if (sender is DataGrid dataGrid)
             {
                 DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
                 if (row != null)
                 {
-                    DataGridCell? rowColumn = dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
-                    if (rowColumn != null)
+                    if (dataGrid.Columns[0].GetCellContent(row).Parent is DataGridCell rowColumn)
                     {
                         string postingId = ((TextBlock)rowColumn.Content).Text;
                         JobPosting? jobPosting = jobPostingService.GetJobPosting(postingId);
@@ -101,11 +99,11 @@ namespace CandidateManagement_WPF
             };
             if (jobPostingService.DeleteJobPosting(job))
             {
-                MessageBox.Show("Delete successful!");
+                MessageBox.Show("Jost Posting is deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadData();
             } else
             {
-                MessageBox.Show("Something went wrong!");
+                MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -120,11 +118,11 @@ namespace CandidateManagement_WPF
             };
             if (jobPostingService.UpdateJobPosting(job))
             {
-                MessageBox.Show("Update successful!");
+                MessageBox.Show("Jost Posting is updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadData();
             } else
             {
-                MessageBox.Show("Something went wrong!");
+                MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

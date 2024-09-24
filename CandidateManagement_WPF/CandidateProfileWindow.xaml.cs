@@ -37,14 +37,12 @@ namespace CandidateManagement_WPF
 
         private void dtgCandidate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataGrid? dataGrid = sender as DataGrid;
-            if (dataGrid != null)
+            if (sender is DataGrid dataGrid)
             {
                 DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
                 if (row != null)
                 {
-                    DataGridCell? rowColumn = dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
-                    if (rowColumn != null)
+                    if (dataGrid.Columns[0].GetCellContent(row).Parent is DataGridCell rowColumn)
                     {
                         string CandidateId = ((TextBlock)rowColumn.Content).Text;
                         CandidateProfile? candidateProfile = candidateProfileService.GetCandidateProfile(CandidateId);
@@ -98,11 +96,12 @@ namespace CandidateManagement_WPF
                 };
                 if (candidateProfileService.AddCandidateProfile(candidateProfile))
                 {
+                    MessageBox.Show("Candidate Profile is added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     MessageBox.Show("Add successful!");
                     LoadData();
                 } else
                 {
-                    MessageBox.Show("Something went wrong!");
+                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -115,11 +114,11 @@ namespace CandidateManagement_WPF
             };
             if (candidateProfileService.DeleteCandidateProfile(candidateProfile))
             {
-                MessageBox.Show("Delete successful!");
+                MessageBox.Show("Candidate Profile is deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoadData();
             } else
             {
-                MessageBox.Show("Something went wrong!");
+                MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -139,11 +138,11 @@ namespace CandidateManagement_WPF
                 };
                 if (candidateProfileService.UpdateCandidateProfile(candidateProfile))
                 {
-                    MessageBox.Show("Update successful!");
+                    MessageBox.Show("Candidate Profile is updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     LoadData();
                 } else
                 {
-                    MessageBox.Show("Something went wrong!");
+                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

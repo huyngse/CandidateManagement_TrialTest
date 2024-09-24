@@ -10,7 +10,7 @@ namespace CandidateManagement_DAO
 {
     public class CandidateProfileDAO
     {
-        private CandidateManagementContext context;
+        private readonly CandidateManagementContext context;
         private static CandidateProfileDAO? instance;
         public CandidateProfileDAO()
         {
