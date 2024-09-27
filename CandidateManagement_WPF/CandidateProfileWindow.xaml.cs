@@ -21,6 +21,7 @@ namespace CandidateManagement_WPF
     /// </summary>
     public partial class CandidateProfileWindow : Window
     {
+        private int? RoleID = 0;
         private ICandidateProfileService candidateProfileService;
         private IJobPostingService jobPostingService;
         public CandidateProfileWindow()
@@ -28,6 +29,29 @@ namespace CandidateManagement_WPF
             InitializeComponent();
             candidateProfileService = new CandidateProfileService();
             jobPostingService = new JobPostingService();
+        }
+        public CandidateProfileWindow(int? roleID)
+        {
+            RoleID = roleID;
+            InitializeComponent();
+            candidateProfileService = new CandidateProfileService();
+            jobPostingService = new JobPostingService();
+            switch (RoleID)
+            {
+                case 1:
+                {
+                    break;
+                }
+                case 2:
+                {
+                    btnAdd.IsEnabled = false;
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

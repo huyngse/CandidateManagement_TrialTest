@@ -23,7 +23,7 @@ namespace CandidateManagement_WPF
         {
             InitializeComponent();
             hRAccountService = new HRAccountService();
-       
+
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -33,17 +33,13 @@ namespace CandidateManagement_WPF
             {
                 if (account.Password == txtPassword.Password)
                 {
-                    if (account.MemberRole == 1)
-                    {
-                        JobPostingWindow jobPostingWindow = new JobPostingWindow();
-                        jobPostingWindow.Show();
 
-                        //CandidateProfileWindow candidateProfileWindow = new CandidateProfileWindow();
-                        //candidateProfileWindow.Show();
-                    } else
-                    {
-                        MessageBox.Show("Account doesn't have permission", "Alert Title", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    //JobPostingWindow jobPostingWindow = new JobPostingWindow();
+                    //jobPostingWindow.Show();
+
+                    CandidateProfileWindow candidateProfileWindow = new CandidateProfileWindow(account.MemberRole);
+                    candidateProfileWindow.Show();
+
                 } else
                 {
                     MessageBox.Show("Password isn't correct", "Alert Title", MessageBoxButton.OK, MessageBoxImage.Error);
