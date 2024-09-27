@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace CandidateManagement_BusinessObject
 {
@@ -24,8 +25,17 @@ namespace CandidateManagement_BusinessObject
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-PFM1IK5L\\SQLEXPRESS01;Uid=sa;Pwd=1234567890;Database=CandidateManagement;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer(GetConnectionString());
             }
+        }
+
+        private string GetConnectionString()
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+            return configuration.GetConnectionString("DbConnect") ?? string.Empty;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
