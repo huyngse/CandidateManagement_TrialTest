@@ -45,7 +45,10 @@ namespace CandidateManagement_WPF
             {
                 PostingId = txtPostId.Text,
                 JobPostingTitle = txtTitle.Text,
-                Description = new TextRange(rtbDescription.Document.ContentStart, rtbDescription.Document.ContentEnd).Text,
+                Description = (new TextRange(
+                    rtbDescription.Document.ContentStart,
+                    rtbDescription.Document.ContentEnd).Text)
+                    .TrimEnd('\r', '\n'),
                 PostedDate = DateTime.Parse(dpkPostDate.Text)
             };
             if (jobPostingService.AddJobPosting(job))
@@ -113,7 +116,10 @@ namespace CandidateManagement_WPF
             {
                 PostingId = txtPostId.Text,
                 JobPostingTitle = txtTitle.Text,
-                Description = new TextRange(rtbDescription.Document.ContentStart, rtbDescription.Document.ContentEnd).Text,
+                Description = (new TextRange(
+                    rtbDescription.Document.ContentStart, 
+                    rtbDescription.Document.ContentEnd).Text)
+                    .TrimEnd('\r', '\n'),
                 PostedDate = DateTime.Parse(dpkPostDate.Text)
             };
             if (jobPostingService.UpdateJobPosting(job))

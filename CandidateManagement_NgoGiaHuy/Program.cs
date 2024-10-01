@@ -1,7 +1,18 @@
+using CandidateManagement_BusinessObject;
+using CandidateManagement_Repository;
+using CandidateManagement_Service;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<CandidateManagementContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnect") ?? "");
+});
+builder.Services.AddScoped<ICandidateProfileService, CandidateProfileService>();
+builder.Services.AddScoped<ICandidateProfileRepo, CandidateProfileRepo>();
 
 var app = builder.Build();
 

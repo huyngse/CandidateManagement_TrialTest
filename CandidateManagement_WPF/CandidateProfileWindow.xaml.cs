@@ -115,7 +115,10 @@ namespace CandidateManagement_WPF
                     CandidateId = txtCandidateId.Text,
                     Fullname = txtFullName.Text,
                     PostingId = jobPosting.PostingId,
-                    ProfileShortDescription = new TextRange(rtbDescription.Document.ContentStart, rtbDescription.Document.ContentEnd).Text,
+                    ProfileShortDescription = (new TextRange(
+                        rtbDescription.Document.ContentStart,
+                        rtbDescription.Document.ContentEnd).Text)
+                        .TrimEnd('\r', '\n'),
                     ProfileUrl = txtImageUrl.Text,
                 };
                 if (candidateProfileService.AddCandidateProfile(candidateProfile))
@@ -157,7 +160,10 @@ namespace CandidateManagement_WPF
                     CandidateId = txtCandidateId.Text,
                     Fullname = txtFullName.Text,
                     PostingId = jobPosting.PostingId,
-                    ProfileShortDescription = new TextRange(rtbDescription.Document.ContentStart, rtbDescription.Document.ContentEnd).Text,
+                    ProfileShortDescription = (new TextRange(
+                        rtbDescription.Document.ContentStart,
+                        rtbDescription.Document.ContentEnd).Text)
+                        .TrimEnd('\r', '\n'),
                     ProfileUrl = txtImageUrl.Text,
                 };
                 if (candidateProfileService.UpdateCandidateProfile(candidateProfile))
