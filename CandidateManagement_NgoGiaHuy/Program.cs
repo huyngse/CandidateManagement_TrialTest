@@ -7,12 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<CandidateManagementContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnect") ?? "");
-});
 builder.Services.AddScoped<ICandidateProfileService, CandidateProfileService>();
 builder.Services.AddScoped<ICandidateProfileRepo, CandidateProfileRepo>();
+builder.Services.AddScoped<IJobPostingService, JobPostingService>();
 
 var app = builder.Build();
 

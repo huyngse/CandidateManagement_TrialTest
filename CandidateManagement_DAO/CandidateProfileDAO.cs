@@ -26,11 +26,11 @@ namespace CandidateManagement_DAO
         }
         public List<CandidateProfile> GetCandidateProfiles()
         {
-            return context.CandidateProfiles.ToList();
+            return context.CandidateProfiles.Include(x => x.Posting).ToList();
         }
         public CandidateProfile? GetCandidateProfile(string id)
         {
-            return context.CandidateProfiles.SingleOrDefault(x => x.CandidateId == id);
+            return context.CandidateProfiles.Include(x => x.Posting).SingleOrDefault(x => x.CandidateId == id);
         }
 
         public bool AddCandidateProfile(CandidateProfile candidateProfile)

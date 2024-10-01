@@ -6,38 +6,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CandidateManagement_BusinessObject;
+using CandidateManagement_Service;
 
 namespace CandidateManagement_NgoGiaHuy.Pages.CandidateProfilePage
 {
     public class CreateModel : PageModel
     {
-        private readonly CandidateManagement_BusinessObject.CandidateManagementContext _context;
+        private readonly ICandidateProfileService _candidateProfileService;
+        private readonly IJobPostingService _jobPostingService;
 
-        public CreateModel(CandidateManagement_BusinessObject.CandidateManagementContext context)
+        public CreateModel(ICandidateProfileService candidateProfileService, IJobPostingService jobPostingService)
         {
-            _context = context;
+            _candidateProfileService = candidateProfileService;
+            _jobPostingService = jobPostingService;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["PostingId"] = new SelectList(_context.JobPostings, "PostingId", "PostingId");
+        ViewData["PostingId"] = new SelectList(_jobPostingService.GetJobPostings(), "PostingId", "JobPostingTitle");
             return Page();
         }
 
         [BindProperty]
         public CandidateProfile CandidateProfile { get; set; } = default!;
         
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-          if (!ModelState.IsValid || _context.CandidateProfiles == null || CandidateProfile == null)
+          if (!ModelState.IsValid || CandidateProfile == null)
             {
                 return Page();
             }
 
-            _context.CandidateProfiles.Add(CandidateProfile);
-            await _context.SaveChangesAsync();
+            _candidateProfileService.AddCandidateProfile(CandidateProfile);
 
             return RedirectToPage("./Index");
         }

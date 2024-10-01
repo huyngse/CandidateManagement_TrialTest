@@ -7,52 +7,51 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CandidateManagement_BusinessObject;
+using CandidateManagement_Service;
 
 namespace CandidateManagement_NgoGiaHuy.Pages.CandidateProfilePage
 {
     public class EditModel : PageModel
     {
-        private readonly CandidateManagement_BusinessObject.CandidateManagementContext _context;
+        private readonly ICandidateProfileService _candidateProfileService;
+        private readonly IJobPostingService _jobPostingService;
 
-        public EditModel(CandidateManagement_BusinessObject.CandidateManagementContext context)
+        public EditModel(ICandidateProfileService candidateProfileService, IJobPostingService jobPostingService)
         {
-            _context = context;
+            _candidateProfileService = candidateProfileService;
+            _jobPostingService = jobPostingService;
         }
 
         [BindProperty]
         public CandidateProfile CandidateProfile { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
-            if (id == null || _context.CandidateProfiles == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var candidateprofile =  await _context.CandidateProfiles.FirstOrDefaultAsync(m => m.CandidateId == id);
+            var candidateprofile = _candidateProfileService.GetCandidateProfile(id);
             if (candidateprofile == null)
             {
                 return NotFound();
             }
             CandidateProfile = candidateprofile;
-           ViewData["PostingId"] = new SelectList(_context.JobPostings, "PostingId", "PostingId");
+           ViewData["PostingId"] = new SelectList(_jobPostingService.GetJobPostings(), "PostingId", "JobPostingTitle");
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(CandidateProfile).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _candidateProfileService.UpdateCandidateProfile(CandidateProfile);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -71,7 +70,7 @@ namespace CandidateManagement_NgoGiaHuy.Pages.CandidateProfilePage
 
         private bool CandidateProfileExists(string id)
         {
-          return (_context.CandidateProfiles?.Any(e => e.CandidateId == id)).GetValueOrDefault();
+          return _candidateProfileService.GetCandidateProfile(id) is not null;
         }
     }
 }

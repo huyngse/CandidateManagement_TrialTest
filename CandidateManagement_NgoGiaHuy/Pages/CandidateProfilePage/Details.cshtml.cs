@@ -6,28 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CandidateManagement_BusinessObject;
+using CandidateManagement_Service;
 
 namespace CandidateManagement_NgoGiaHuy.Pages.CandidateProfilePage
 {
     public class DetailsModel : PageModel
     {
-        private readonly CandidateManagement_BusinessObject.CandidateManagementContext _context;
+        private readonly ICandidateProfileService _candidateProfileService;
 
-        public DetailsModel(CandidateManagement_BusinessObject.CandidateManagementContext context)
+        public DetailsModel(ICandidateProfileService candidateProfileService)
         {
-            _context = context;
+            _candidateProfileService = candidateProfileService;
         }
 
       public CandidateProfile CandidateProfile { get; set; } = default!; 
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public IActionResult OnGet(string id)
         {
-            if (id == null || _context.CandidateProfiles == null)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            var candidateprofile = await _context.CandidateProfiles.FirstOrDefaultAsync(m => m.CandidateId == id);
+            var candidateprofile = _candidateProfileService.GetCandidateProfile(id);
             if (candidateprofile == null)
             {
                 return NotFound();

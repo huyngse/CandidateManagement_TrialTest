@@ -6,26 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CandidateManagement_BusinessObject;
+using CandidateManagement_Service;
 
 namespace CandidateManagement_NgoGiaHuy.Pages.CandidateProfilePage
 {
     public class IndexModel : PageModel
     {
-        private readonly CandidateManagement_BusinessObject.CandidateManagementContext _context;
+        private readonly ICandidateProfileService _candidateProfileService;
 
-        public IndexModel(CandidateManagementContext context)
+        public IndexModel(ICandidateProfileService candidateProfileService)
         {
-            _context = context;
+            _candidateProfileService = candidateProfileService;
         }
 
         public IList<CandidateProfile> CandidateProfile { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            if (_context.CandidateProfiles != null)
+            if (_candidateProfileService != null)
             {
-                CandidateProfile = await _context.CandidateProfiles
-                .Include(c => c.Posting).ToListAsync();
+                CandidateProfile = _candidateProfileService.GetCandidateProfiles();
             }
         }
     }
